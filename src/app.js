@@ -1,6 +1,7 @@
-const { log } = global.console;
-const { ENVIRONMENT } = require('../config.js');
+const { connect } = require('mongoose');
+const { DB_CONNECTION_STRING } = require('../config.js');
 
 (async () => {
-  log('testing', ENVIRONMENT);
+  await connect(DB_CONNECTION_STRING);
+  console.log('CONNECTED!');
 })();

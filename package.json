@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "npm test && nodemon src/app.js",
-    "lint": "eslint --fix src",
-    "test": "npm run lint && mocha"
+    "lint": "eslint --fix ./",
+    "test": "npm run lint && mocha \"test/**/*.test.js\""
   },
   "repository": {
     "type": "git",
@@ -23,12 +23,20 @@
     "url": "https://github.com/mostafa-saeed/SocialMedia-Profiles-Connector/issues"
   },
   "homepage": "https://github.com/mostafa-saeed/SocialMedia-Profiles-Connector#readme",
+  "dependencies": {
+    "mongoose": "^5.9.27"
+  },
   "devDependencies": {
     "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^7.6.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
+    "husky": "^4.2.5",
     "mocha": "^8.1.1",
     "nodemon": "^2.0.4"
+  },
+  "husky": {
+    "pre-commit": "npm test"
   }
 }
