@@ -1,7 +1,3 @@
-const { connect } = require('mongoose');
-const { DB_CONNECTION_STRING } = require('../config.js');
+const { start } = require('./server');
 
-(async () => {
-  await connect(DB_CONNECTION_STRING);
-  console.log('CONNECTED!');
-})();
+start();

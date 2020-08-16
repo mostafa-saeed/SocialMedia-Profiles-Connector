@@ -7,7 +7,7 @@ const { connect, disconnect } = require('mongoose');
 const Users = require('../../src/models/users');
 
 const { assert, expect } = chai;
-const { DB_CONNECTION_STRING } = require('../../config.js');
+const { DB_CONNECTION_STRING } = require('../../src/config.js');
 
 const newUser = {
   username: 'mostafa',
