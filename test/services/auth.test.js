@@ -36,8 +36,8 @@ describe('Auth Server', () => {
   });
 
   describe('Token functions', () => {
-    it('generateToken: Should return a JWT token', async () => {
-      const token = await generateToken({
+    it('generateToken: Should return a JWT token', () => {
+      const token = generateToken({
         username: 'mostafa',
         email: 'test@localhost',
         password: 's0mER@andom__Characters',
