@@ -38,12 +38,11 @@
     "eslint": "^7.6.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
-    "husky": "^4.2.5",
     "mocha": "^8.1.1",
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "pre-commit": "^1.2.2"
   },
-  "husky": {
-    "pre-commit": "npm test",
-    "pre-push": "npm test"
-  }
+  "pre-commit": [
+    "test"
+  ]
 }
