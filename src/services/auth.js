@@ -13,8 +13,8 @@ module.exports = {
     user: { username, email },
   }, JWT_TOKEN),
 
-  validateToken: async (decoded) => ({
-    isValid: await Users.findOne({ username: decoded.username }),
+  validateToken: async ({ user: { username } }) => ({
+    isValid: await Users.findOne({ username }),
   }),
 
 };

@@ -5,7 +5,9 @@ const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 const Users = require('../../src/models/users');
 const { start, stop } = require('../../src/server');
-const { emailAvailable, usernameAvailable, userExists } = require('../../src/services/users');
+const {
+  emailAvailable, usernameAvailable, userExists, usernameEmailLogin,
+} = require('../../src/services/users');
 
 const { assert, expect } = chai;
 chai.use(chaiAsPromised);
@@ -73,6 +75,28 @@ describe('Users Service', () => {
       expect(userExists({
         params: { username: notFoundUsername },
       })).to.eventually.throw('User doesn\'t exist!');
+    });
+  });
+
+  describe('usernameEmailLogin function', () => {
+    it('Should return the user by username', async () => {
+      const result = await usernameEmailLogin({
+        payload: { login: user.username },
+      });
+      assert.isObject(result);
+    });
+
+    it('Should return the user by email', async () => {
+      const result = await usernameEmailLogin({
+        payload: { login: user.email },
+      });
+      assert.isObject(result);
+    });
+
+    it('Should throw an error when no user is found', async () => {
+      expect(usernameEmailLogin({
+        payload: { login: notFoundUsername },
+      })).to.eventually.throw();
     });
   });
 });
