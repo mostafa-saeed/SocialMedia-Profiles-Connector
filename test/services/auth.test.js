@@ -4,7 +4,7 @@ const {
 const { assert } = require('chai');
 const { hashPassword, comparePassword, generateToken } = require('../../src/services/auth');
 
-describe('Auth Server', () => {
+describe('Auth Service', () => {
   describe('Password functions', () => {
     describe('hashPassword', () => {
       it('Should generate hash for a given string', async () => {
