@@ -15,4 +15,4 @@ const userPlatformSchema = new Schema({
   },
 });
 
-module.exports = model('userPlatforms', userPlatformSchema);
+module.exports = model('UserPlatforms', userPlatformSchema);
