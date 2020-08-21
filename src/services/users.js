@@ -5,10 +5,13 @@ const Users = require('../models/users');
 const { hashPassword, comparePassword } = require('./auth');
 
 const userProjection = {
-  _id: 0,
   __v: 0,
   password: 0,
 };
+
+const userResponse = ({ _id: id, username, email }) => ({
+  id, username, email,
+});
 
 module.exports = {
   emailAvailable: async (req) => {
@@ -40,23 +43,18 @@ module.exports = {
   },
 
   createUser: async (req) => {
-    const { username, email } = await Users.create(req.payload);
-    req.createdUser = {
-      username, email,
-    };
-
-    return req.createdUser;
+    const user = await Users.create(req.payload);
+    return userResponse(user);
   },
 
-  userExists: async (req) => {
+  getUser: async (req) => {
     const { username } = req.params;
-    const found = await Users.findOne({ username }, userProjection);
-    if (!found) {
+    const user = await Users.findOne({ username }, userProjection);
+    if (!user) {
       throw notFound('User doesn\'t exist!');
     }
-    req.foundUser = found;
 
-    return found;
+    return userResponse(user);
   },
 
   usernameEmailLogin: async (req) => {
@@ -67,15 +65,15 @@ module.exports = {
 
     if (!user) throw unauthorized('Wrong email/username or password');
 
-    req.foundUser = { username: user.username, email: user.email };
-    req.hashedPassword = user.password;
-
-    return req.foundUser;
+    return {
+      user: userResponse(user),
+      hashedPassword: user.password,
+    };
   },
 
   loginComparePassword: async (req) => {
     const { password } = req.payload;
-    const { hashedPassword } = req;
+    const { pre: { result: { hashedPassword } } } = req;
 
     const result = await comparePassword(password, hashedPassword);
     if (!result) throw unauthorized('Wrong email/username or password');

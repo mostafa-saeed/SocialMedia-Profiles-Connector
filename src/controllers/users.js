@@ -1,6 +1,6 @@
 const { register, login } = require('../schemas/users');
 const {
-  userExists, emailAvailable, usernameAvailable, hashPassword, createUser,
+  getUser, emailAvailable, usernameAvailable, hashPassword, createUser,
   usernameEmailLogin, loginComparePassword,
 } = require('../services/users');
 const { generateToken } = require('../services/auth');
@@ -10,9 +10,9 @@ module.exports = [{
   path: '/api/users/{username}',
   config: {
     pre: [
-      { method: userExists },
+      { method: getUser, assign: 'user' },
     ],
-    handler: ({ foundUser }) => foundUser,
+    handler: ({ pre: { user } }) => user,
   },
 },
 
@@ -24,16 +24,13 @@ module.exports = [{
       { method: emailAvailable },
       { method: usernameAvailable },
       { method: hashPassword },
-      { method: createUser },
+      { method: createUser, assign: 'user' },
     ],
     validate: { payload: register },
-    handler: (req) => {
-      const { createdUser: user } = req;
-      return {
-        user,
-        token: generateToken(user),
-      };
-    },
+    handler: ({ pre: { user } }) => ({
+      user,
+      token: generateToken(user),
+    }),
   },
 },
 
@@ -42,17 +39,14 @@ module.exports = [{
   path: '/api/users/login',
   config: {
     pre: [
-      { method: usernameEmailLogin },
+      { method: usernameEmailLogin, assign: 'result' },
       { method: loginComparePassword },
     ],
     validate: { payload: login },
-    handler: (req) => {
-      const { foundUser: user } = req;
-      return {
-        user,
-        token: generateToken(user),
-      };
-    },
+    handler: ({ pre: { result: { user } } }) => ({
+      user,
+      token: generateToken(user),
+    }),
   },
 },
 

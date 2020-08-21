@@ -6,7 +6,7 @@ const chaiAsPromised = require('chai-as-promised');
 const Users = require('../../src/models/users');
 const { start, stop } = require('../../src/server');
 const {
-  emailAvailable, usernameAvailable, userExists, usernameEmailLogin,
+  emailAvailable, usernameAvailable, getUser, usernameEmailLogin,
 } = require('../../src/services/users');
 
 const { assert, expect } = chai;
@@ -63,16 +63,16 @@ describe('Users Service', () => {
     });
   });
 
-  describe('userExists function', () => {
+  describe('getUser function', () => {
     it('Should return the user by username', async () => {
-      const result = await userExists({
+      const result = await getUser({
         params: { username: user.username },
       });
       assert.isObject(result);
     });
 
     it('Should throw an error when the isn\'t found', async () => {
-      expect(userExists({
+      expect(getUser({
         params: { username: notFoundUsername },
       })).to.eventually.throw('User doesn\'t exist!');
     });
@@ -80,17 +80,25 @@ describe('Users Service', () => {
 
   describe('usernameEmailLogin function', () => {
     it('Should return the user by username', async () => {
-      const result = await usernameEmailLogin({
+      const { user: result } = await usernameEmailLogin({
         payload: { login: user.username },
       });
       assert.isObject(result);
+      assert.property(result, 'id');
+      assert.property(result, 'username');
+      assert.property(result, 'email');
+      assert.notProperty(result, 'password');
     });
 
     it('Should return the user by email', async () => {
-      const result = await usernameEmailLogin({
+      const { user: result } = await usernameEmailLogin({
         payload: { login: user.email },
       });
       assert.isObject(result);
+      assert.property(result, 'id');
+      assert.property(result, 'username');
+      assert.property(result, 'email');
+      assert.notProperty(result, 'password');
     });
 
     it('Should throw an error when no user is found', async () => {
