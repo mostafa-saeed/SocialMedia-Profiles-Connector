@@ -9,8 +9,8 @@ module.exports = {
 
   comparePassword: (plainPassword, hashedPassword) => compare(plainPassword, hashedPassword),
 
-  generateToken: (user) => jwt.sign({
-    user,
+  generateToken: ({ id, email, username }) => jwt.sign({
+    user: { id, email, username },
   }, JWT_TOKEN),
 
   validateToken: async ({ user: { username } }) => ({

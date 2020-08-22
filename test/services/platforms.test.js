@@ -14,7 +14,7 @@ let server;
 const platform = {
   name: 'facebook',
   profileURL: 'https://fb.com',
-  usernamePattern: '.+',
+  usernamePattern: '^[a-z\\d.]{5,}$',
 };
 
 describe('Platforms Service', () => {

@@ -9,9 +9,28 @@ const userProjection = {
   password: 0,
 };
 
-const userResponse = ({ _id: id, username, email }) => ({
-  id, username, email,
+const userPlatformsResponse = (userPlatforms) => userPlatforms.map(({ username, platform }) => ({
+  username,
+  name: platform.name,
+  url: `${platform.profileURL}/${username}`,
+}));
+
+const userResponse = ({
+  _id: id, username, email, platforms,
+}) => ({
+  id,
+  username,
+  email,
+  platforms: userPlatformsResponse(platforms || []),
 });
+
+const USER_PLATFORMS_POPULATE_OBJECT = {
+  path: 'platforms',
+  populate: {
+    path: 'platform',
+    model: 'Platforms',
+  },
+};
 
 module.exports = {
   emailAvailable: async (req) => {
@@ -49,7 +68,10 @@ module.exports = {
 
   getUser: async (req) => {
     const { username } = req.params;
-    const user = await Users.findOne({ username }, userProjection);
+    const user = await Users.findOne({ username }, userProjection).populate(
+      USER_PLATFORMS_POPULATE_OBJECT,
+    );
+
     if (!user) {
       throw notFound('User doesn\'t exist!');
     }

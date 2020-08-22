@@ -22,9 +22,9 @@ module.exports = {
   },
 
   validateUsername: (req) => {
-    const { pattern } = req.pre.platform;
+    const { usernamePattern } = req.pre.platform;
     const { username } = req.payload;
-    if (!(new RegExp(pattern).test(username))) {
+    if (!(new RegExp(usernamePattern).test(username))) {
       throw badRequest('Invalid username');
     }
 
