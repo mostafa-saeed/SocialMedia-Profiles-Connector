@@ -9,10 +9,7 @@ module.exports = [{
   method: 'get',
   path: '/api/users/{username}',
   config: {
-    pre: [
-      { method: getUser, assign: 'user' },
-    ],
-    handler: ({ pre: { user } }) => user,
+    handler: getUser,
   },
 },
 
