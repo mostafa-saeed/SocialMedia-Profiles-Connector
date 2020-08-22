@@ -17,13 +17,13 @@ module.exports = [{
   method: 'post',
   path: '/api/users',
   config: {
+    validate: { payload: register },
     pre: [
       { method: emailAvailable },
       { method: usernameAvailable },
       { method: hashPassword },
       { method: createUser, assign: 'user' },
     ],
-    validate: { payload: register },
     handler: ({ pre: { user } }) => ({
       user,
       token: generateToken(user),
@@ -35,11 +35,11 @@ module.exports = [{
   method: 'post',
   path: '/api/users/login',
   config: {
+    validate: { payload: login },
     pre: [
       { method: usernameEmailLogin, assign: 'result' },
       { method: loginComparePassword },
     ],
-    validate: { payload: login },
     handler: ({ pre: { result: { user } } }) => ({
       user,
       token: generateToken(user),
