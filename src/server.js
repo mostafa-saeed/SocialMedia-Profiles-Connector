@@ -28,7 +28,7 @@ module.exports = {
       server.route(require(`./controllers/${controller}`)); // eslint-disable-line
     });
     // Connect to the database
-    await connect(DB_CONNECTION_STRING);
+    await connect(DB_CONNECTION_STRING, { useFindAndModify: false });
     // Run the server
     await server.start();
     // Return server instance

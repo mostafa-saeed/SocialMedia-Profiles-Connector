@@ -39,7 +39,7 @@ describe('Platforms Service', () => {
   describe('getPlatform function', () => {
     it('Should return platform by its name', async () => {
       const result = await getPlatform({
-        params: { name: platform.name },
+        params: { platform: platform.name },
       });
       assert.isObject(result);
       assert.property(result, 'name');
@@ -47,7 +47,7 @@ describe('Platforms Service', () => {
 
     it('Should throw an exception with a wrong name', async () => {
       expect(getPlatform({
-        params: { name: 'NOT_FOUND' },
+        params: { platform: 'NOT_FOUND' },
       })).to.eventually.throw();
     });
   });

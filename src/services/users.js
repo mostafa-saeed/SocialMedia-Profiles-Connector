@@ -1,5 +1,5 @@
 const {
-  badRequest, notFound, forbidden, unauthorized,
+  badRequest, notFound, unauthorized,
 } = require('@hapi/boom');
 const Users = require('../models/users');
 const { hashPassword, comparePassword } = require('./auth');
@@ -79,15 +79,6 @@ module.exports = {
     if (!result) throw unauthorized('Wrong email/username or password');
 
     return result;
-  },
-
-  canUpdate: async (req) => {
-    const { username } = req.auth.credentials.user;
-    if (username !== req.params.username) {
-      throw forbidden('Can\'t edit');
-    }
-
-    return true;
   },
 
 };

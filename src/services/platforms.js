@@ -17,7 +17,7 @@ module.exports = {
   ).map((platform) => platformResponse(platform)),
 
   getPlatform: async (req) => {
-    const { name } = req.params;
+    const { platform: name } = req.params;
     const platform = await Platforms.findOne({ name }, platformProjection);
     if (!platform) throw notFound('Platform doesn\'t exist');
 
