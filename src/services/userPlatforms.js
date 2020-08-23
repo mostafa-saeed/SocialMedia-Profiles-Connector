@@ -18,7 +18,7 @@ module.exports = {
 
     if (!userPlatform) throw notFound('UserPlatform doesn\'t exist');
 
-    return userPlatform;
+    return userPlatformResponse(userPlatform, req.pre.platform.profileURL);
   },
 
   validateUsername: (req) => {
