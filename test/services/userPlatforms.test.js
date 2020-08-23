@@ -10,7 +10,7 @@ const { start, stop } = require('../../src/server');
 const Users = require('../../src/models/users');
 const Platforms = require('../../src/models/platforms');
 const UserPlatforms = require('../../src/models/userPlatforms');
-const { getUserPlatform, validateUsername } = require('../../src/services/userPlatforms');
+const { getUserPlatform, validateUsername, addUserPlatform } = require('../../src/services/userPlatforms');
 
 chai.use(chaiAsPromised);
 
@@ -111,5 +111,18 @@ describe('UserPlatforms Service', () => {
     });
   });
 
-  // addUserPlatform
+  describe('addUserPlatform function', () => {
+    it('Should add a userPlatform', async () => {
+      const userPlatform = await addUserPlatform({
+        pre: { platform },
+        auth: { credentials: { user } },
+        payload: { username },
+      });
+
+      assert.isObject(userPlatform);
+      assert.property(userPlatform, 'id');
+      assert.property(userPlatform, 'username');
+      assert.property(userPlatform, 'url');
+    });
+  });
 });
