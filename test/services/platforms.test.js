@@ -46,9 +46,9 @@ describe('Platforms Service', () => {
     });
 
     it('Should throw an exception with a wrong name', async () => {
-      expect(getPlatform({
+      await expect(getPlatform({
         params: { platform: 'NOT_FOUND' },
-      })).to.eventually.throw();
+      })).to.be.rejectedWith('Platform doesn\'t exist');
     });
   });
 });

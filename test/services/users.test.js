@@ -42,9 +42,9 @@ describe('Users Service', () => {
     });
 
     it('Should throw an error when a user with the same email already exists', async () => {
-      expect(emailAvailable({
+      await expect(emailAvailable({
         payload: { email: user.email },
-      })).to.eventually.throw('Email already exists!');
+      })).to.be.rejectedWith('Email already exists!');
     });
   });
 
@@ -57,9 +57,9 @@ describe('Users Service', () => {
     });
 
     it('Should throw an error when a user with the same username already exists', async () => {
-      expect(usernameAvailable({
+      await expect(usernameAvailable({
         payload: { username: user.username },
-      })).to.eventually.throw('Username already exists!');
+      })).to.be.rejectedWith('Username already exists!');
     });
   });
 
@@ -72,9 +72,9 @@ describe('Users Service', () => {
     });
 
     it('Should throw an error when the isn\'t found', async () => {
-      expect(getUser({
+      await expect(getUser({
         params: { username: notFoundUsername },
-      })).to.eventually.throw('User doesn\'t exist!');
+      })).to.be.rejectedWith('User doesn\'t exist!');
     });
   });
 
@@ -102,9 +102,9 @@ describe('Users Service', () => {
     });
 
     it('Should throw an error when no user is found', async () => {
-      expect(usernameEmailLogin({
+      await expect(usernameEmailLogin({
         payload: { login: notFoundUsername },
-      })).to.eventually.throw();
+      })).to.be.rejectedWith('Wrong email/username or password');
     });
   });
 });

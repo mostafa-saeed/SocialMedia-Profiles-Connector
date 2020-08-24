@@ -86,9 +86,9 @@ describe('UserPlatforms Service', () => {
       const { _id: userID } = user;
       const { _id: platformID } = platform;
       const invalidPlatformID = platformID.toString().replace('1', '0');
-      expect(getUserPlatform({
+      await expect(getUserPlatform({
         pre: { user: { id: userID }, platform: { id: invalidPlatformID } },
-      })).to.eventually.throw();
+      })).to.be.rejectedWith('UserPlatform doesn\'t exist');
     });
   });
 
