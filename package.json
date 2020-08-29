@@ -1,0 +1,48 @@
+{
+  "name": "socialmedia-profiles-connector",
+  "version": "1.0.0",
+  "description": "This project will help you to save all your different social media usernames in one place to make you more reachable.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "npm test && nodemon src/app.js",
+    "lint": "eslint --fix ./",
+    "test": "npm run lint && mocha \"test/**/*.test.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mostafa-saeed/SocialMedia-Profiles-Connector.git"
+  },
+  "keywords": [
+    "node.js",
+    "mongoose"
+  ],
+  "author": "Mostafa Saeed <mostafa.saeed543@gmail.com>",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/mostafa-saeed/SocialMedia-Profiles-Connector/issues"
+  },
+  "homepage": "https://github.com/mostafa-saeed/SocialMedia-Profiles-Connector#readme",
+  "dependencies": {
+    "@hapi/boom": "^9.1.0",
+    "@hapi/hapi": "^19.2.0",
+    "@hapi/joi": "^17.1.1",
+    "bcrypt": "^5.0.0",
+    "hapi-auth-jwt2": "^10.1.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.27"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "eslint": "^7.6.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "mocha": "^8.1.1",
+    "nodemon": "^2.0.4",
+    "pre-commit": "^1.2.2"
+  },
+  "pre-commit": [
+    "test"
+  ]
+}
