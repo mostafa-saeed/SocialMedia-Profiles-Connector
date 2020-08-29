@@ -1,8 +1,8 @@
 FROM node:12-alpine
 
-EXPOSE 3000
-
-RUN apk add --update tini
+ARG PORT=3000
+ENV PORT $PORT
+EXPOSE $PORT
 
 RUN mkdir /opt/node_app && chown node:node /opt/node_app
 WORKDIR /opt/node_app
@@ -15,4 +15,4 @@ RUN npm install --no-optional && npm cache clean --force
 COPY --chown=node:node src ./src
 WORKDIR /opt/node_app/src
 
-CMD /sbin/tini -- node ./app.js
+CMD ["node", "app.js"]
