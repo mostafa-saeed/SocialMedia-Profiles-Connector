@@ -84,8 +84,7 @@ describe('UserPlatforms Service', () => {
 
     it('Should throw an exception when userPlatform isn\'t found', async () => {
       const { _id: userID } = user;
-      const { _id: platformID } = platform;
-      const invalidPlatformID = platformID.toString().replace('1', '0');
+      const invalidPlatformID = '000000000000000000000000';
       await expect(getUserPlatform({
         pre: { user: { id: userID }, platform: { id: invalidPlatformID } },
       })).to.be.rejectedWith('UserPlatform doesn\'t exist');
