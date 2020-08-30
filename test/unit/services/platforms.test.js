@@ -3,9 +3,9 @@ const {
 } = require('mocha');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
-const { start, stop } = require('../../src/server');
-const Platforms = require('../../src/models/platforms');
-const { getPlatforms, getPlatform } = require('../../src/services/platforms');
+const { start, stop } = require('../../../src/server');
+const Platforms = require('../../../src/models/platforms');
+const { getPlatforms, getPlatform } = require('../../../src/services/platforms');
 
 const { assert, expect } = chai;
 chai.use(chaiAsPromised);

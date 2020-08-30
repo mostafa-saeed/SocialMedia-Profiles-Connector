@@ -3,11 +3,11 @@ const {
 } = require('mocha');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
-const Users = require('../../src/models/users');
-const { start, stop } = require('../../src/server');
+const Users = require('../../../src/models/users');
+const { start, stop } = require('../../../src/server');
 const {
   emailAvailable, usernameAvailable, getUser, usernameEmailLogin,
-} = require('../../src/services/users');
+} = require('../../../src/services/users');
 
 const { assert, expect } = chai;
 chai.use(chaiAsPromised);

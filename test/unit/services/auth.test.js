@@ -2,7 +2,7 @@ const {
   describe, it, before,
 } = require('mocha');
 const { assert } = require('chai');
-const { hashPassword, comparePassword, generateToken } = require('../../src/services/auth');
+const { hashPassword, comparePassword, generateToken } = require('../../../src/services/auth');
 
 describe('Auth Service', () => {
   describe('Password functions', () => {
