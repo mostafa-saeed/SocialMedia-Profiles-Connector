@@ -1,6 +1,6 @@
 const { describe, it } = require('mocha');
 const { assert } = require('chai');
-const { start, stop } = require('../src/server');
+const { start, stop } = require('../../src/server');
 
 describe('Server', () => {
   let server;

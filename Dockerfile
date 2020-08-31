@@ -13,6 +13,5 @@ COPY --chown=node:node package*.json ./
 RUN npm install --no-optional && npm cache clean --force
 
 COPY --chown=node:node src ./src
-WORKDIR /opt/node_app/src
 
-CMD ["node", "app.js"]
+CMD ["node", "src/app.js"]

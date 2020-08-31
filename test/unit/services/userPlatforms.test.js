@@ -6,11 +6,11 @@ const chai = require('chai');
 
 const { assert } = chai;
 const { expect } = require('chai');
-const { start, stop } = require('../../src/server');
-const Users = require('../../src/models/users');
-const Platforms = require('../../src/models/platforms');
-const UserPlatforms = require('../../src/models/userPlatforms');
-const { getUserPlatform, validateUsername, addUserPlatform } = require('../../src/services/userPlatforms');
+const { start, stop } = require('../../../src/server');
+const Users = require('../../../src/models/users');
+const Platforms = require('../../../src/models/platforms');
+const UserPlatforms = require('../../../src/models/userPlatforms');
+const { getUserPlatform, validateUsername, addUserPlatform } = require('../../../src/services/userPlatforms');
 
 chai.use(chaiAsPromised);
 
