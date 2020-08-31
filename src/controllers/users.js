@@ -10,6 +10,27 @@ module.exports = [{
   path: '/api/users/{username}',
   config: {
     handler: getUser,
+    plugins: {
+      'hapi-swagger': {
+        responses: {
+          200: {
+            description: 'User response',
+            content: {
+              'application/json': {
+                schema: {
+                  id: String,
+                },
+              },
+            },
+          },
+          404: {
+            description: 'User was not found',
+          },
+        },
+      },
+    },
+    description: 'Get a user by username.',
+    tags: ['api'],
   },
 },
 
@@ -28,6 +49,8 @@ module.exports = [{
       user,
       token: generateToken(user),
     }),
+    description: 'Add new user {Registration}.',
+    tags: ['api'],
   },
 },
 
