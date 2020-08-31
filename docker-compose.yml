@@ -1,0 +1,19 @@
+version: '2.2'
+
+services:
+  node_app:
+    build:
+      context: .
+    ports:
+      - 3000:3000
+    environment: 
+      - DB_CONNECTION_STRING=mongodb://mongo/development_db
+    restart: always
+    command: ./node_modules/nodemon/bin/nodemon.js src/app.js
+    volumes:
+      - ./src:/opt/node_app/src
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:4
