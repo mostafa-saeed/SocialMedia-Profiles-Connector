@@ -1,20 +1,35 @@
 const Joi = require('joi');
 
 module.exports = {
-  register: Joi.object({
-    username: Joi.string().required(),
-    email: Joi.string().email().required(),
-    password: Joi.string().required().min(8),
-  }),
+  registerSchema: {
+    payload: Joi.object({
+      username: Joi.string().required().example('mostafa'),
+      email: Joi.string().email().required().example('mostafa@gmail.com'),
+      password: Joi.string().required().min(8),
+    }).label('User'),
+  },
 
-  login: Joi.object({
-    login: Joi.string().required(),
-    password: Joi.string().required(),
-  }),
+  getUserSchema: {
+    params: Joi.object({
+      username: Joi.string().required().example('mostafa'),
+    }),
+  },
 
-  update: Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().required().min(8),
-  }),
+  loginSchema: {
+    payload: Joi.object({
+      login: Joi.string().required(),
+      password: Joi.string().required(),
+    }).label('Login'),
+  },
+
+  userResponse: Joi.object({
+    user: Joi.object({
+      id: Joi.string(),
+      username: Joi.string(),
+      email: Joi.string().email(),
+      platforms: Joi.array().items(Joi.object()),
+    }),
+    token: Joi.string(),
+  }).label('UserResponse'),
 
 };

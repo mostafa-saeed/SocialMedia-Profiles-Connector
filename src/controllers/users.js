@@ -1,4 +1,6 @@
-const { register, login } = require('../schemas/users');
+const {
+  getUserSchema, registerSchema, loginSchema,
+} = require('../schemas/users');
 const {
   getUser, emailAvailable, usernameAvailable, hashPassword, createUser,
   usernameEmailLogin, loginComparePassword,
@@ -9,26 +11,8 @@ module.exports = [{
   method: 'get',
   path: '/api/users/{username}',
   config: {
+    validate: getUserSchema,
     handler: getUser,
-    plugins: {
-      'hapi-swagger': {
-        responses: {
-          200: {
-            description: 'User response',
-            content: {
-              'application/json': {
-                schema: {
-                  id: String,
-                },
-              },
-            },
-          },
-          404: {
-            description: 'User was not found',
-          },
-        },
-      },
-    },
     description: 'Get a user by username.',
     tags: ['api'],
   },
@@ -38,7 +22,7 @@ module.exports = [{
   method: 'post',
   path: '/api/users',
   config: {
-    validate: { payload: register },
+    validate: registerSchema,
     pre: [
       { method: emailAvailable },
       { method: usernameAvailable },
@@ -49,6 +33,7 @@ module.exports = [{
       user,
       token: generateToken(user),
     }),
+    // response: { schema: userResponse },
     description: 'Add new user {Registration}.',
     tags: ['api'],
   },
@@ -58,7 +43,7 @@ module.exports = [{
   method: 'post',
   path: '/api/users/login',
   config: {
-    validate: { payload: login },
+    validate: loginSchema,
     pre: [
       { method: usernameEmailLogin, assign: 'result' },
       { method: loginComparePassword },
@@ -67,6 +52,8 @@ module.exports = [{
       user,
       token: generateToken(user),
     }),
+    description: 'Login',
+    tags: ['api'],
   },
 },
 
@@ -76,5 +63,7 @@ module.exports = [{
   config: {
     auth: { strategy: 'jwt' },
     handler: (req) => req.auth.credentials.user,
+    description: 'Profile',
+    tags: ['api'],
   },
 }];
