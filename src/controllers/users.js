@@ -1,5 +1,5 @@
 const {
-  getUserSchema, registerSchema, loginSchema,
+  getUserSchema, registerSchema, loginSchema, userResponse, loginResponse,
 } = require('../schemas/users');
 const {
   getUser, emailAvailable, usernameAvailable, hashPassword, createUser,
@@ -13,6 +13,7 @@ module.exports = [{
   config: {
     validate: getUserSchema,
     handler: getUser,
+    response: { schema: userResponse },
     description: 'Get a user by username.',
     tags: ['api'],
   },
@@ -33,7 +34,7 @@ module.exports = [{
       user,
       token: generateToken(user),
     }),
-    // response: { schema: userResponse },
+    response: { schema: loginResponse },
     description: 'Add new user {Registration}.',
     tags: ['api'],
   },
@@ -52,6 +53,7 @@ module.exports = [{
       user,
       token: generateToken(user),
     }),
+    response: { schema: loginResponse },
     description: 'Login',
     tags: ['api'],
   },
@@ -63,6 +65,7 @@ module.exports = [{
   config: {
     auth: { strategy: 'jwt' },
     handler: (req) => req.auth.credentials.user,
+    response: { schema: userResponse },
     description: 'Profile',
     tags: ['api'],
   },

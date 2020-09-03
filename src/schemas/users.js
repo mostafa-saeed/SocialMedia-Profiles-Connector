@@ -1,12 +1,26 @@
 const Joi = require('joi');
 
+const userResponse = Joi.object({
+  id: Joi.string().example('5f509cdf9532620edf41fd1b'),
+  username: Joi.string().example('mostafa'),
+  email: Joi.string().email().example('mostafa@gmail.com'),
+  platforms: Joi.array().items(
+    Joi.object().label('UserPlatform'),
+  ).label('UserPlatforms'),
+}).label('UserResponse');
+
+const loginResponse = Joi.object({
+  user: userResponse,
+  token: Joi.string(),
+}).label('LoginResponse');
+
 module.exports = {
   registerSchema: {
     payload: Joi.object({
       username: Joi.string().required().example('mostafa'),
       email: Joi.string().email().required().example('mostafa@gmail.com'),
       password: Joi.string().required().min(8),
-    }).label('User'),
+    }).label('RegisterPayload'),
   },
 
   getUserSchema: {
@@ -17,19 +31,13 @@ module.exports = {
 
   loginSchema: {
     payload: Joi.object({
-      login: Joi.string().required(),
+      login: Joi.string().required().description('Username or email'),
       password: Joi.string().required(),
-    }).label('Login'),
+    }).label('LoginPayload'),
   },
 
-  userResponse: Joi.object({
-    user: Joi.object({
-      id: Joi.string(),
-      username: Joi.string(),
-      email: Joi.string().email(),
-      platforms: Joi.array().items(Joi.object()),
-    }),
-    token: Joi.string(),
-  }).label('UserResponse'),
+  userResponse,
+
+  loginResponse,
 
 };
