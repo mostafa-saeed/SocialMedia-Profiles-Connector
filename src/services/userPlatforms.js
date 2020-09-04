@@ -2,7 +2,7 @@ const { notFound, badRequest } = require('@hapi/boom');
 const UserPlatforms = require('../models/userPlatforms');
 
 const userPlatformResponse = ({ _id: id, username }, profileURL) => ({
-  id,
+  id: id.toString(),
   username,
   url: `${profileURL}/${username}`,
 });
