@@ -18,7 +18,7 @@ const userPlatformsResponse = (userPlatforms) => userPlatforms.map(({ username, 
 const userResponse = ({
   _id: id, username, email, platforms,
 }) => ({
-  id,
+  id: id.toString(),
   username,
   email,
   platforms: userPlatformsResponse(platforms || []),
