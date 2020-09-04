@@ -14,7 +14,7 @@ const { DB_CONNECTION_STRING, PORT, JWT_TOKEN } = require('./config.js');
 const swagger = {
   plugin: HapiSwagger,
   options: {
-    info: { title: 'IDK' },
+    info: { title: 'API Documentation' },
   },
 };
 
