@@ -8,7 +8,7 @@ const platformProjection = {
 const platformResponse = ({
   _id: id, name, profileURL, usernamePattern,
 }) => ({
-  id, name, profileURL, usernamePattern,
+  id: id.toString(), name, profileURL, usernamePattern,
 });
 
 module.exports = {
