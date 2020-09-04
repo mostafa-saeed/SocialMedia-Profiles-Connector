@@ -1,12 +1,11 @@
 const Joi = require('joi');
+const { userPlatformResponse } = require('./userPlatforms');
 
 const userResponse = Joi.object({
   id: Joi.string().example('5f509cdf9532620edf41fd1b'),
   username: Joi.string().example('mostafa'),
   email: Joi.string().email().example('mostafa@gmail.com'),
-  platforms: Joi.array().items(
-    Joi.object().label('UserPlatform'),
-  ).label('UserPlatforms'),
+  platforms: Joi.array().items(userPlatformResponse).label('UserPlatforms'),
 }).label('UserResponse');
 
 const loginResponse = Joi.object({
