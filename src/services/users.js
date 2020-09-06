@@ -9,11 +9,12 @@ const userProjection = {
   password: 0,
 };
 
-const userPlatformsResponse = (userPlatforms) => userPlatforms.map(({ username, platform }) => ({
-  username,
-  name: platform.name,
-  url: `${platform.profileURL}/${username}`,
-}));
+const userPlatformsResponse = (userPlatforms) => userPlatforms
+  .map(({ username, platform: { name, profileURL } }) => ({
+    name,
+    username,
+    url: `${profileURL}/${username}`,
+  }));
 
 const userResponse = ({
   _id: id, username, email, platforms,
@@ -83,7 +84,7 @@ module.exports = {
     const { login } = req.payload;
     const user = await Users.findOne({
       $or: [{ username: login }, { email: login }],
-    });
+    }).populate(USER_PLATFORMS_POPULATE_OBJECT);
 
     if (!user) throw unauthorized('Wrong email/username or password');
 

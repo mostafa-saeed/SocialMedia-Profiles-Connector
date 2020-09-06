@@ -1,8 +1,8 @@
 const { notFound, badRequest } = require('@hapi/boom');
 const UserPlatforms = require('../models/userPlatforms');
 
-const userPlatformResponse = ({ _id: id, username }, profileURL) => ({
-  id: id.toString(),
+const userPlatformResponse = ({ username }, { name, profileURL }) => ({
+  name,
   username,
   url: `${profileURL}/${username}`,
 });
@@ -18,7 +18,7 @@ module.exports = {
 
     if (!userPlatform) throw notFound('UserPlatform doesn\'t exist');
 
-    return userPlatformResponse(userPlatform, req.pre.platform.profileURL);
+    return userPlatformResponse(userPlatform, req.pre.platform);
   },
 
   validateUsername: (req) => {
@@ -42,6 +42,6 @@ module.exports = {
       { upsert: true, new: true },
     );
 
-    return userPlatformResponse(userPlatform, req.pre.platform.profileURL);
+    return userPlatformResponse(userPlatform, req.pre.platform);
   },
 };

@@ -35,6 +35,12 @@ module.exports = {
     }).label('LoginPayload'),
   },
 
+  profileSchema: {
+    headers: Joi.object({
+      authorization: Joi.string().required(),
+    }).label('ProfilePayload').unknown(),
+  },
+
   userResponse,
 
   loginResponse,

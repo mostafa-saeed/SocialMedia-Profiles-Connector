@@ -70,7 +70,7 @@ describe('UserPlatforms API Functional Testing', () => {
       assert.strictEqual(message, 'Invalid username');
     });
 
-    it('Should userPlatform when the username matches the patter', async () => {
+    it('Should add userPlatform when the username matches the platform pattern', async () => {
       const { statusCode, result } = await server.inject({
         method: 'POST',
         url: `/api/users/platforms/${platform.name}`,
