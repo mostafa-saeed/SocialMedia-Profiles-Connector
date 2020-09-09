@@ -23,6 +23,11 @@ module.exports = {
     // Init server instance
     const server = new Hapi.Server({
       port: PORT,
+      routes: {
+        cors: {
+          origin: ['*'], // an array of origins or 'ignore'
+        },
+      },
     });
     // Register Hapi plugins
     await server.register([jwt2, Inert, Vision, swagger]);
