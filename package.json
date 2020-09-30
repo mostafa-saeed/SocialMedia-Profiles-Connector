@@ -28,12 +28,14 @@
     "@hapi/hapi": "^20.0.0",
     "@hapi/inert": "^6.0.2",
     "@hapi/vision": "^6.0.1",
+    "aws-sdk": "^2.762.0",
     "bcrypt": "^5.0.0",
     "hapi-auth-jwt2": "^10.1.0",
     "hapi-swagger": "^14.0.0",
     "joi": "^17.2.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.27"
+    "mongoose": "^5.9.27",
+    "qrcode": "^1.4.4"
   },
   "devDependencies": {
     "chai": "^4.2.0",
