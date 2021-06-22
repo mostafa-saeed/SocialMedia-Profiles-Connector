@@ -1,5 +1,6 @@
 const {
   getUserSchema, registerSchema, loginSchema, userResponse, loginResponse,
+  profileSchema,
 } = require('../schemas/users');
 const {
   getUser, emailAvailable, usernameAvailable, hashPassword, createUser,
@@ -64,6 +65,7 @@ module.exports = [{
   path: '/api/users/me',
   config: {
     auth: { strategy: 'jwt' },
+    validate: profileSchema,
     handler: (req) => req.auth.credentials.user,
     response: { schema: userResponse },
     description: 'Profile',

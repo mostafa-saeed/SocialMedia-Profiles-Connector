@@ -76,7 +76,7 @@ describe('UserPlatforms Service', () => {
       });
 
       assert.isObject(result);
-      assert.property(result, 'id');
+      assert.property(result, 'name');
       assert.property(result, 'username');
       assert.property(result, 'url');
       assert.equal(result.username, username);
@@ -119,7 +119,7 @@ describe('UserPlatforms Service', () => {
       });
 
       assert.isObject(userPlatform);
-      assert.property(userPlatform, 'id');
+      assert.property(userPlatform, 'name');
       assert.property(userPlatform, 'username');
       assert.property(userPlatform, 'url');
     });

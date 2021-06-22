@@ -1,15 +1,21 @@
 const Joi = require('joi');
 
 const userPlatformResponse = Joi.object({
-  id: Joi.string().example('5f509cdf9532620edf41fd1b'),
+  name: Joi.string().example('facebook'),
   username: Joi.string().example('mostafa'),
-  url: Joi.string().uri().example('https://fb.com/mostafa'),
+  url: Joi.string().example('https://fb.com/mostafa'),
 }).label('UserPlatformResponse');
 
 module.exports = {
   addUserPlatformSchema: {
+    headers: Joi.object({
+      authorization: Joi.string().required(),
+    }).unknown(),
+    params: Joi.object({
+      platform: Joi.string().example('facebook'),
+    }),
     payload: Joi.object({
-      username: Joi.string().required(),
+      username: Joi.string().required().example('mostafa'),
     }).label('AddUserPlatformPayload'),
   },
 
